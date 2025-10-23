@@ -151,19 +151,19 @@ void tracker_update(Tracker* tracker, object_detect_result* detections, int num_
                 if (track->hits >= MIN_HITS_TO_CONFIRM) {
                     // Confirmed: collected enough hits
                     track->state = TRACK_STATE_NEW;
-                    printf("✨ ID %d: NEW (confirmed with %d hits in %d frames)\n", 
-                           track->track_id, track->hits, frames_elapsed);
+                    // printf("✨ ID %d: NEW (confirmed with %d hits in %d frames)\n", 
+                    //        track->track_id, track->hits, frames_elapsed);
                     if (callback) callback(track->track_id, old_state, track->state);
                 } else if (frames_elapsed >= CONFIRMATION_TIME_WINDOW) {
                     // Time window expired without enough hits - remove track
-                    printf("⏱️ ID %d: TENTATIVE expired (%d hits in %d frames, needed %d)\n", 
-                           track->track_id, track->hits, frames_elapsed, MIN_HITS_TO_CONFIRM);
+                    // printf("⏱️ ID %d: TENTATIVE expired (%d hits in %d frames, needed %d)\n", 
+                    //        track->track_id, track->hits, frames_elapsed, MIN_HITS_TO_CONFIRM);
                     track->state = TRACK_STATE_LOST_PERMANENT;
                     if (callback) callback(track->track_id, old_state, track->state);
                 }
             } else if (track->state == TRACK_STATE_LOST_TEMP) {
                 track->state = TRACK_STATE_TRACKED;
-                printf("🔄 ID %d: RE-TRACKED (was lost temporarily)\n", track->track_id);
+                // printf("🔄 ID %d: RE-TRACKED (was lost temporarily)\n", track->track_id);
                 if (callback) callback(track->track_id, old_state, track->state);
             } else if (track->state == TRACK_STATE_NEW) {
                 track->state = TRACK_STATE_TRACKED;

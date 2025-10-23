@@ -132,7 +132,7 @@ void tracker_update(Tracker* tracker, object_detect_result* detections, int num_
             
             if (track->state == TRACK_STATE_LOST_TEMP) {
                 track->state = TRACK_STATE_TRACKED;
-                printf("🔄 ID %d: RE-TRACKED (was lost temporarily)\n", track->track_id);
+                // printf("🔄 ID %d: RE-TRACKED (was lost temporarily)\n", track->track_id);
                 if (callback) callback(track->track_id, old_state, track->state);
             } else if (track->state == TRACK_STATE_NEW) {
                 track->state = TRACK_STATE_TRACKED;
@@ -148,14 +148,14 @@ void tracker_update(Tracker* tracker, object_detect_result* detections, int num_
             
             if (track->time_since_update > MAX_DISAPPEARED_FRAMES) {
                 track->state = TRACK_STATE_LOST_PERMANENT;
-                printf("❌ ID %d: LOST PERMANENTLY (disappeared for %d frames)\n", 
-                       track->track_id, track->time_since_update);
+                // printf("❌ ID %d: LOST PERMANENTLY (disappeared for %d frames)\n", 
+                //        track->track_id, track->time_since_update);
                 if (callback) callback(track->track_id, old_state, track->state);
             } else if (track->time_since_update > MAX_LOST_FRAMES) {
                 if (track->state != TRACK_STATE_LOST_TEMP) {
                     track->state = TRACK_STATE_LOST_TEMP;
-                    printf("⚠️  ID %d: LOST TEMPORARILY (searching...)\n", track->track_id);
-                    if (callback) callback(track->track_id, old_state, track->state);
+                    // printf("⚠️  ID %d: LOST TEMPORARILY (searching...)\n", track->track_id);
+                    // if (callback) callback(track->track_id, old_state, track->state);
                 }
             }
         }
